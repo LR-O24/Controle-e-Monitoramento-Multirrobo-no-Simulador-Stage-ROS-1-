@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- ==========================================================
+       fleet_clients.launch
+       Uso opcional: sobe SOMENTE os nos de comportamento (sem o
+       Stage), para ser executado em um PC CLIENTE diferente do
+       PC que roda o roscore + Stage. Antes de rodar este launch,
+       configure no terminal do cliente:
+
+         export ROS_MASTER_URI=http://<IP_DO_MESTRE>:11311
+         export ROS_IP=<IP_DESTE_PC_CLIENTE>
+
+       Assim os nos abaixo se conectam ao roscore remoto e trocam
+       mensagens com o Stage que roda na outra maquina.
+       ========================================================== -->
+
+  <node name="robot0_odometry_nav" pkg="multirobot_fleet" type="robot0_odometry_nav.py"
+        output="screen"/>
+
+  <node name="robot1_obstacle_avoidance" pkg="multirobot_fleet" type="robot1_obstacle_avoidance.py"
+        output="screen"/>
+
+  <node name="robot2_follower" pkg="multirobot_fleet" type="robot2_follower.py"
+        output="screen"/>
+
+</launch>

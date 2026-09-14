@@ -1,0 +1,51 @@
+<launch>
+
+  <!-- ==========================================================
+       fleet_simulation.launch
+       Sobe o simulador Stage com o mundo da arena (3 robos) e
+       inicia os nos de comportamento de cada robo mais o no
+       central de telemetria/seguranca.
+       ========================================================== -->
+
+  <!-- Argumentos configuraveis via linha de comando -->
+  <arg name="world_file" default="$(find multirobot_fleet)/worlds/fleet_arena.world"/>
+  <arg name="critical_distance" default="0.5"/>
+  <arg name="safe_distance_robot1" default="0.8"/>
+  <arg name="desired_distance_robot2" default="1.5"/>
+
+  <!-- Simulador Stage: publica /robot_X/odom, /robot_X/base_scan
+       e assina /robot_X/cmd_vel para cada robo definido no .world -->
+  <node name="stageros" pkg="stage_ros" type="stageros"
+        args="$(arg world_file)" output="screen"/>
+
+  <!-- Robo 0: navegacao por odometria (trajetoria retangular) -->
+  <node name="robot0_odometry_nav" pkg="multirobot_fleet" type="robot0_odometry_nav.py"
+        output="screen">
+    <param name="side_length" value="3.0"/>
+    <param name="linear_speed" value="0.3"/>
+    <param name="angular_speed" value="0.5"/>
+  </node>
+
+  <!-- Robo 1: desvio autonomo de obstaculos -->
+  <node name="robot1_obstacle_avoidance" pkg="multirobot_fleet" type="robot1_obstacle_avoidance.py"
+        output="screen">
+    <param name="safe_distance" value="$(arg safe_distance_robot1)"/>
+    <param name="linear_speed" value="0.3"/>
+    <param name="angular_speed" value="0.6"/>
+  </node>
+
+  <!-- Robo 2: seguidor/perseguicao do Robo 0 -->
+  <node name="robot2_follower" pkg="multirobot_fleet" type="robot2_follower.py"
+        output="screen">
+    <param name="desired_distance" value="$(arg desired_distance_robot2)"/>
+    <param name="min_distance" value="0.8"/>
+  </node>
+
+  <!-- No central de telemetria, servico /get_fleet_status e
+       mecanismo de emergencia /emergency_stop -->
+  <node name="fleet_telemetry_node" pkg="multirobot_fleet" type="fleet_telemetry_node.py"
+        output="screen">
+    <param name="critical_distance" value="$(arg critical_distance)"/>
+  </node>
+
+</launch>

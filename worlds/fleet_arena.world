@@ -1,0 +1,67 @@
+### fleet_arena.world
+###
+### Mundo do Stage para o desafio de frota de 3 robos Pioneer 3DX.
+### Um robo (name) publica automaticamente em /<name>/odom,
+### /<name>/base_scan e assina /<name>/cmd_vel quando o stage_ros
+### e executado com o parametro "one_tf_tree"/namespaces habilitado
+### (comportamento padrao do stage_ros ao usar varios "position").
+
+include "pioneer.inc"
+include "map.inc"
+include "sick.inc"
+
+# Configuracoes gerais da simulacao
+resolution 0.02
+interval_sim 100   # ms simulados por passo
+interval_real 100  # ms reais por passo
+
+window
+(
+  size [700 700]
+  rotate [0 0]
+  scale 28
+)
+
+# Mapa/arena com obstaculos, carregado a partir do bitmap gerado
+floorplan
+(
+  name "arena"
+  bitmap "../bitmaps/arena.png"
+  size [16.0 16.0 1.0]
+  pose [0 0 0 0]
+)
+
+# Modelo base do Pioneer 3DX com sensor de distancia (ranger) e odometria
+define fleet_robot pioneer3dx
+(
+  sicklaser
+  (
+    pose [0 0 0 0]
+  )
+  localization "odom"
+  odom_error [0.03 0.03 0.02]
+)
+
+# Robo 0 - Navegacao por odometria (trajetoria retangular)
+fleet_robot
+(
+  name "robot_0"
+  pose [-6.0 -6.0 0 0]
+  color "blue"
+)
+
+# Robo 1 - Desvio autonomo de obstaculos
+fleet_robot
+(
+  name "robot_1"
+  pose [0.0 0.0 0 90]
+  color "green"
+)
+
+# Robo 2 - Seguidor/Perseguicao do Robo 0
+fleet_robot
+(
+  name "robot_2"
+  pose [-7.0 -6.0 0 0]
+  color "red"
+)

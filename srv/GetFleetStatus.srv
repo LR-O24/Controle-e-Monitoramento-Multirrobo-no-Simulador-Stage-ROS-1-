@@ -1,0 +1,5 @@
+---
+string[] robot_names
+float64[] distances_traveled
+float64[] current_speeds
+string[] status

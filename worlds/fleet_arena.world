@@ -39,7 +39,7 @@ define fleet_robot pioneer3dx
     pose [0 0 0 0]
   )
   localization "odom"
-  odom_error [0.03 0.03 0.02]
+  odom_error [0.03 0.03 0.0 0.02]
 )
 
 # Robo 0 - Navegacao por odometria (trajetoria retangular)

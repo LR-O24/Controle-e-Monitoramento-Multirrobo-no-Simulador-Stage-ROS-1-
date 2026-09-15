@@ -31,7 +31,7 @@ class Robot1ObstacleAvoidance(object):
         self.latest_scan = None
 
         self.cmd_pub = rospy.Publisher('/robot_1/cmd_vel', Twist, queue_size=10)
-        rospy.Subscriber('/robot_1/base_scan', LaserScan, self.scan_callback)
+        rospy.Subscriber('/robot_1/base_scan_1', LaserScan, self.scan_callback)
         rospy.Subscriber('/emergency_stop', Bool, self.emergency_callback)
 
         self.rate = rospy.Rate(10)

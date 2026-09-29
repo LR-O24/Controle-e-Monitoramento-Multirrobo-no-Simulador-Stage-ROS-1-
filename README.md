@@ -277,3 +277,7 @@ O vídeo mostra: o Stage com os 3 robôs executando seus comportamentos, a
 chamada do serviço `/get_fleet_status` no terminal, e a comunicação
 multi-máquina em ação (comandos rodando em dois computadores diferentes
 da mesma rede).
+
+## Apresentação
+
+Link da apresentação `https://canva.link/w94qgd37qp7pzlv`

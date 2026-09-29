@@ -271,7 +271,7 @@ máquina de cada desenvolvedor, formando a estrutura padrão do catkin:
 
 ## Vídeo demonstrativo
 
-📹 Link do vídeo (3–5 min): `https://youtu.be/r1dtR2JZ--0`
+📹 Link do vídeo: `https://youtu.be/r1dtR2JZ--0`
 
 O vídeo mostra: o Stage com os 3 robôs executando seus comportamentos, a
 chamada do serviço `/get_fleet_status` no terminal, e a comunicação
